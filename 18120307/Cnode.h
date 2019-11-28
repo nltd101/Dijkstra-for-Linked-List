@@ -8,6 +8,7 @@ public:
 	string LABEL;
 	list<Cnode*> LISTn;
 	bool CHECKED;
+	Cnode* TRACE;
 	Cnode(string);
 };
 

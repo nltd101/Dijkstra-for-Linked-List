@@ -28,3 +28,20 @@ void BFS(list<Cnode*> &listQUEU) {
 		BFS(listQUEU);
 	}
 }
+void FindNearest(list<Cnode*>& listQUEU) {
+	Cnode* first = *(listQUEU.begin());
+	listQUEU.pop_front();
+	for (list<Cnode*>::iterator it = first->LISTn.begin(); it != first->LISTn.end(); it++)
+	{
+		if (!(*it)->CHECKED)
+		{
+			(*it)->CHECKED = true;
+			(*it)->TRACE = first;
+			listQUEU.push_back(*it);
+		}
+	}
+	if (listQUEU.size() != 0)
+	{
+		FindNearest(listQUEU);
+	}
+}

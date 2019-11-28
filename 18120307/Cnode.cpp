@@ -4,4 +4,5 @@ Cnode::Cnode(string Label)
 {
 	this->LABEL = Label;
 	this->CHECKED = false;
+	this->TRACE = NULL;
 }

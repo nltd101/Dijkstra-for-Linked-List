@@ -1,47 +1,45 @@
 #include "Header.h"
 
-void DFS(Cnode* node) {
-	node->CHECKED = true;
-	cout << node->LABEL<<" ";
-	for (list<Cnode*>::iterator it = node->LISTn.begin(); it!=node->LISTn.end();it++)
+
+void Dijktra(Cnode* u,string LABEL,list<Cnode*>ListDistance) {
+	
+	u->DISTANCE = 0;
+	Cnode* nodemin=NULL;
+	while (true)
 	{
-		if (!(*it)->CHECKED)
+		int minDistance=-1;
+		for (list<Cnode*>::iterator it = ListDistance.begin();it != ListDistance.end();it++)
 		{
-			DFS(*it);
+			if ((!(*it)->CHECKED))
+			{
+				if ((minDistance == -1)||((*it)->DISTANCE<minDistance))
+				{
+					
+					minDistance = (*it)->DISTANCE;
+					nodemin = *it;
+				}
+			}
 		}
-	}
-}
-void BFS(list<Cnode*> &listQUEU) {
-	Cnode* first = *(listQUEU.begin());
-	listQUEU.pop_front();
-	cout << first->LABEL << " ";
-	for (list<Cnode*>::iterator it = first->LISTn.begin(); it != first->LISTn.end(); it++)
-	{
-		if (!(*it)->CHECKED)
+		if ((nodemin->LABEL==LABEL)||(minDistance==-1))
 		{
-			(*it)->CHECKED = true;
-			listQUEU.push_back(*it);
+			break;
 		}
-	}
-	if (listQUEU.size()!=0)
-	{
-		BFS(listQUEU);
-	}
-}
-void FindNearest(list<Cnode*>& listQUEU) {
-	Cnode* first = *(listQUEU.begin());
-	listQUEU.pop_front();
-	for (list<Cnode*>::iterator it = first->LISTn.begin(); it != first->LISTn.end(); it++)
-	{
-		if (!(*it)->CHECKED)
+		nodemin->CHECKED = true;
+		;
+		list<int>::iterator itdis = nodemin->LISTweight.begin();
+		for (list<Cnode*>::iterator it = nodemin->LISTn.begin();
+			 it!= nodemin->LISTn.end(), itdis!=nodemin->LISTweight.end(); it++,itdis++)
 		{
-			(*it)->CHECKED = true;
-			(*it)->TRACE = first;
-			listQUEU.push_back(*it);
+			//if (!(*it)->CHECKED)
+			{
+				//(*it)->CHECKED = true;
+				if ((nodemin->DISTANCE+*itdis<(*it)->DISTANCE))
+				{
+					(*it)->DISTANCE = nodemin->DISTANCE + *itdis;
+					(*it)->TRACE = nodemin;
+				}
+
+			}
 		}
-	}
-	if (listQUEU.size() != 0)
-	{
-		FindNearest(listQUEU);
 	}
 }

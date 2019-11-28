@@ -1,79 +1,17 @@
 #include "Cnode.h"
 #include "Header.h"
-void runbfs();
-void rundfs();
+
 void printNeareast();
 
 
 void main() {
-	cout << "Thu tu duyen dfs: "; 
-	rundfs();
-	cout << endl <<"Thu tu duyen bfs: ";
-	runbfs();
-	cout << endl << "Duong di ngan nhat tu a toi d: ";
+
+   
+	cout << endl << "Duong di ngan nhat tu a toi d: "<<endl;
+	
 	printNeareast();
 }
-void runbfs() {
-	Cnode* a = new Cnode("a");
-	Cnode* b = new Cnode("b");
-	Cnode* c = new Cnode("c");
-	Cnode* d = new Cnode("d");
-	Cnode* e = new Cnode("e");
-	Cnode* f = new Cnode("f");
-	a->LISTn.push_back(f);
-	a->LISTn.push_back(d);
-	a->LISTn.push_back(b);
 
-	b->LISTn.push_back(c);
-
-	c->LISTn.push_back(d);
-	
-	d->LISTn.push_back(b);
-
-	e->LISTn.push_back(d);
-	e->LISTn.push_back(f);
-
-	f->LISTn.push_back(d);
-	
-
-	list<Cnode*> list;
-	a->CHECKED = true;
-	list.push_back(a);
-	BFS(list);
-}
-void rundfs() {
-	Cnode* a = new Cnode("a");
-	Cnode* b = new Cnode("b");
-	Cnode* c = new Cnode("c");
-	Cnode* d = new Cnode("d");
-	Cnode* e = new Cnode("e");
-	Cnode* f = new Cnode("f");
-	a->LISTn.push_back(f);
-	a->LISTn.push_back(d);
-	a->LISTn.push_back(b);
-
-	b->LISTn.push_back(a);
-	b->LISTn.push_back(d);
-	b->LISTn.push_back(c);
-
-
-	c->LISTn.push_back(b);
-	c->LISTn.push_back(d);
-
-	d->LISTn.push_back(c);
-	d->LISTn.push_back(b);
-	d->LISTn.push_back(a);
-	d->LISTn.push_back(f);
-	d->LISTn.push_back(e);
-
-	e->LISTn.push_back(d);
-	e->LISTn.push_back(f);
-
-	f->LISTn.push_back(e);
-	f->LISTn.push_back(d);
-	f->LISTn.push_back(a);
-	DFS(a);
-}
 bool printWay(Cnode* node) {
 	if (node->LABEL == "a")
 	{
@@ -100,24 +38,39 @@ void printNeareast() {
 	Cnode* e = new Cnode("e");
 	Cnode* f = new Cnode("f");
 	a->LISTn.push_back(f);
+	a->LISTweight.push_back(5);
 	a->LISTn.push_back(d);
+	a->LISTweight.push_back(10);
 	a->LISTn.push_back(b);
+	a->LISTweight.push_back(2);
+
 
 	b->LISTn.push_back(c);
+	b->LISTweight.push_back(1);
+
 
 	c->LISTn.push_back(d);
+	c->LISTweight.push_back(1);
 
 	d->LISTn.push_back(b);
+	d->LISTweight.push_back(1);
 
 	e->LISTn.push_back(d);
+	e->LISTweight.push_back(3);
 	e->LISTn.push_back(f);
+	e->LISTweight.push_back(7);
 
 	f->LISTn.push_back(d);
-
+	f->LISTweight.push_back(2);
 
 	list<Cnode*> list;
-	a->CHECKED = true;
 	list.push_back(a);
-	FindNearest(list);
+	list.push_back(b);
+	list.push_back(c);
+	list.push_back(d);
+	list.push_back(e);
+	list.push_back(f);
+	Dijktra(a, "d",list);
 	printWay(d);
+	cout << "Chi phi: " << d->DISTANCE;
 }

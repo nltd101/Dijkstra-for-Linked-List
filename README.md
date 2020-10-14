@@ -1,4 +1,4 @@
-### Dijkstra For Linked List
+### Dijkstra For Pointer Graph
 This soure code illustrates how to apply Dijkstra algorithm into Linked List.
 ### Installation
 It requires Visual Stuio to run.
